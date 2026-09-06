@@ -3,96 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Royal Oasis | Premium Study Lounge</title>
+    <title>The Royal Oasis Library | Luxury Self Study Zone</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Plus+Jakarta+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f0d; color: #e5e7eb; }
         .luxury-font { font-family: 'Cinzel', serif; }
-        .glass-card { background: rgba(18, 26, 20, 0.75); backdrop-filter: blur(10px); border: 1px solid rgba(212, 175, 55, 0.2); }
+        .glass-card { background: rgba(18, 26, 20, 0.9); backdrop-filter: blur(14px); border: 1px solid rgba(212, 175, 55, 0.25); }
+        .gold-gradient { background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #aa771c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     </style>
 </head>
-<body class="pb-16">
+<body class="p-4 pb-16 max-w-md mx-auto">
 
-    <!-- Top Bar -->
-    <header class="p-5 flex justify-between items-center border-b border-[#232d25] bg-[#0b0f0d]/90 sticky top-0 z-50 backdrop-blur-md">
+    <!-- Top Navigation & Header -->
+    <header class="flex items-center justify-between pb-3 border-b border-gray-800 mb-4">
         <div>
-            <span class="text-[10px] tracking-[0.25em] text-[#d4af37] uppercase block font-semibold">Elite Space</span>
-            <h1 class="luxury-font text-lg font-bold text-white">THE ROYAL OASIS</h1>
+            <h1 class="luxury-font text-base font-bold gold-gradient tracking-wider">THE ROYAL OASIS</h1>
+            <p class="text-[10px] text-gray-400">Premium Self-Study Library</p>
         </div>
-        <a href="seat-booking.html" class="text-xs bg-[#d4af37] text-black px-4 py-2 rounded-full font-bold shadow-lg shadow-[#d4af37]/20">
-            Book Seat
+        <a href="tel:9251221747" class="px-3 py-1.5 bg-amber-500/10 border border-amber-500/40 text-[#d4af37] text-xs font-semibold rounded-lg flex items-center gap-1 hover:bg-amber-500/20 transition">
+            📞 Call Now
         </a>
     </header>
 
-    <!-- Hero Section -->
-    <section class="p-6 text-center pt-8">
-        <span class="inline-block bg-[#162219] border border-[#22c55e]/30 text-[#4ade80] text-xs font-medium px-3.5 py-1 rounded-full mb-4">
-            ● 100% Silence Guaranteed
+    <!-- Address Card on Front Page -->
+    <div class="glass-card p-3.5 rounded-2xl mb-5 border border-amber-500/30 shadow-lg">
+        <div class="flex items-start gap-2.5">
+            <span class="text-lg">📍</span>
+            <div>
+                <h2 class="text-xs font-bold text-white uppercase tracking-wide">Library Address / पता</h2>
+                <p class="text-[11px] text-gray-300 mt-0.5 leading-relaxed">
+                    Near City Center, Main Road, Jhunjhunu (Rajasthan)
+                </p>
+                <p class="text-[10px] text-emerald-400 font-medium mt-1">● समय: सुबह 6:00 बजे से रात 11:00 बजे तक</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Offer Banner -->
+    <div class="glass-card p-5 rounded-2xl mb-5 border border-amber-500/40 text-center relative overflow-hidden">
+        <span class="px-3 py-1 bg-amber-500/20 text-[#d4af37] text-[10px] font-bold rounded-full uppercase tracking-wider border border-amber-500/30">
+            Exclusive Online Offer
         </span>
-        <h2 class="luxury-font text-3xl font-bold text-white leading-snug">
-            Peace, Discipline & <br><span class="text-[#d4af37]">Maximum Focus</span>
-        </h2>
-        <p class="text-xs text-gray-400 mt-3 max-w-sm mx-auto leading-relaxed">
-            Designed exclusively for competitive exam aspirants who demand an ultra-productive, undisturbed study environment.
+        <h2 class="luxury-font text-xl font-bold text-white mt-3">Reserve Your Seat Online</h2>
+        <div class="my-3 flex items-center justify-center gap-2">
+            <span class="text-2xl font-extrabold text-emerald-400">₹500<span class="text-xs font-normal text-gray-300">/month</span></span>
+            <span class="text-xs text-gray-400 line-through">₹600 Counter Rate</span>
+        </div>
+        <p class="text-xs text-gray-300 mb-4 leading-relaxed">
+            घर बैठे लाइव खाली सीट देखें और तुरंत ₹100 की छूट के साथ अपनी सीट लॉक करें।
         </p>
-        <div class="mt-6 flex justify-center gap-3">
-            <a href="seat-booking.html" class="bg-[#d4af37] text-black px-6 py-3 rounded-xl font-bold text-sm">
-                Check Live Seats (1-100)
-            </a>
-        </div>
-    </section>
+        <a href="seat-booking.html" class="block w-full py-3.5 bg-gradient-to-r from-amber-500 via-yellow-500 to-amber-600 text-black font-bold text-sm rounded-xl shadow-lg shadow-amber-500/30 hover:opacity-95 transition">
+            ⚡ Check 1-100 Live Seat Map
+        </a>
+    </div>
 
-    <!-- 4 Key Amenities Grid -->
-    <section class="px-5 mt-4">
-        <h3 class="luxury-font text-sm font-bold text-[#d4af37] mb-3 uppercase tracking-wider text-center">World-Class Facilities</h3>
-        <div class="grid grid-cols-2 gap-3">
-            <div class="glass-card p-4 rounded-xl text-center">
-                <span class="text-2xl">❄️</span>
-                <h4 class="font-semibold text-sm text-white mt-1">Central AC</h4>
-                <p class="text-[11px] text-gray-400 mt-0.5">वातानुकूलित शांत कक्ष</p>
-            </div>
-            <div class="glass-card p-4 rounded-xl text-center">
-                <span class="text-2xl">📶</span>
-                <h4 class="font-semibold text-sm text-white mt-1">5G Wi-Fi</h4>
-                <p class="text-[11px] text-gray-400 mt-0.5">हाई-स्पीड इंटरनेट</p>
-            </div>
-            <div class="glass-card p-4 rounded-xl text-center">
-                <span class="text-2xl">💧</span>
-                <h4 class="font-semibold text-sm text-white mt-1">Chilled RO Water</h4>
-                <p class="text-[11px] text-gray-400 mt-0.5">ठंडा व शुद्ध पेयजल</p>
-            </div>
-            <div class="glass-card p-4 rounded-xl text-center">
-                <span class="text-2xl">🤫</span>
-                <h4 class="font-semibold text-sm text-white mt-1">Silent Zone</h4>
-                <p class="text-[11px] text-gray-400 mt-0.5">100% शांत वातावरण</p>
-            </div>
+    <!-- Facilities / Highlights -->
+    <div class="grid grid-cols-2 gap-2.5 mb-6 text-xs">
+        <div class="glass-card p-3 rounded-xl border border-gray-800">
+            <p class="text-base mb-1">⚡</p>
+            <h3 class="font-bold text-white">5G Wi-Fi</h3>
+            <p class="text-[10px] text-gray-400 mt-0.5">High-speed unlimited internet</p>
         </div>
-    </section>
+        <div class="glass-card p-3 rounded-xl border border-gray-800">
+            <p class="text-base mb-1">❄️</p>
+            <h3 class="font-bold text-white">Air Conditioned</h3>
+            <p class="text-[10px] text-gray-400 mt-0.5">शांत और ठंडा माहौल</p>
+        </div>
+        <div class="glass-card p-3 rounded-xl border border-gray-800">
+            <p class="text-base mb-1">🔌</p>
+            <h3 class="font-bold text-white">Personal Socket</h3>
+            <p class="text-[10px] text-gray-400 mt-0.5">हर डेस्क पर पर्सनल चार्जिंग पिन</p>
+        </div>
+        <div class="glass-card p-3 rounded-xl border border-gray-800">
+            <p class="text-base mb-1">🤫</p>
+            <h3 class="font-bold text-white">Pin-Drop Silence</h3>
+            <p class="text-[10px] text-gray-400 mt-0.5">बिल्कुल शांत स्टडी माहौल</p>
+        </div>
+    </div>
 
-    <!-- Pricing & Strict Offline Warning Notice -->
-    <section class="px-5 mt-8">
-        <div class="glass-card p-5 rounded-2xl border-amber-500/30">
-            <div class="flex justify-between items-baseline border-b border-gray-800 pb-3">
-                <span class="text-sm font-semibold text-white">Online Reservation</span>
-                <span class="text-xl font-bold text-[#d4af37]">₹500 <span class="text-xs font-normal text-gray-400">/month</span></span>
-            </div>
-            
-            <div class="mt-4 bg-red-950/40 border border-red-500/40 rounded-xl p-3.5 text-left">
-                <p class="text-xs text-red-300 font-bold uppercase tracking-wide">⚠️ Important Notice / ज़रूरी सूचना</p>
-                <p class="text-xs text-gray-300 mt-1 leading-relaxed">
-                    <strong>English:</strong> Direct offline admissions at the counter cost <strong>₹600/month</strong>. Book through this website and pay advance via WhatsApp to claim the discounted fee of <strong>₹500/month</strong>.
-                </p>
-                <p class="text-xs text-gray-400 mt-2 border-t border-red-500/20 pt-2 leading-relaxed">
-                    <strong>हिंदी:</strong> यदि आप सीधे लाइब्रेरी आकर बात करेंगे तो फीस <strong>₹600/माह</strong> लगेगी। वेबसाइट से सीट चुनकर व्हाट्सएप पर एडवांस पेमेंट करने पर फीस केवल <strong>₹500/माह</strong> रहेगी।
-                </p>
+    <!-- Front Page Photo Gallery -->
+    <div class="mb-6">
+        <div class="flex items-center justify-between mb-3">
+            <h3 class="luxury-font text-xs font-bold text-[#d4af37] tracking-wider uppercase">📸 Library Ambience & Photos</h3>
+            <span class="text-[10px] text-gray-400">Campus View</span>
+        </div>
+
+        <div class="space-y-2.5">
+            <!-- Main Featured Image -->
+            <div class="glass-card p-1.5 rounded-2xl border border-gray-800">
+                <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=800&q=80" alt="Library Study Cabin" class="w-full h-44 object-cover rounded-xl">
+                <p class="text-[11px] text-gray-300 font-medium text-center mt-2 pb-1">आरामदायक कुर्सियां और चौड़े स्टडी डेस्क</p>
             </div>
 
-            <a href="seat-booking.html" class="block text-center mt-4 w-full py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold transition">
-                Select Your Seat & Save ₹100
-            </a>
+            <!-- Two Sub-images Grid -->
+            <div class="grid grid-cols-2 gap-2">
+                <div class="glass-card p-1.5 rounded-xl border border-gray-800">
+                    <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=500&q=80" alt="Silent Zone" class="w-full h-28 object-cover rounded-lg">
+                    <p class="text-[10px] text-gray-400 text-center mt-1">Noise-Free Cabins</p>
+                </div>
+                <div class="glass-card p-1.5 rounded-xl border border-gray-800">
+                    <img src="https://images.unsplash.com/photo-1568667256549-094345857637?auto=format&fit=crop&w=500&q=80" alt="Clean Space" class="w-full h-28 object-cover rounded-lg">
+                    <p class="text-[10px] text-gray-400 text-center mt-1">साफ-सुथरा वातावरण</p>
+                </div>
+            </div>
         </div>
-    </section>
+    </div>
+
+    <!-- Bottom Fixed / Prominent CTA -->
+    <div class="pt-2">
+        <a href="seat-booking.html" class="flex items-center justify-center gap-2 w-full py-3.5 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl text-sm shadow-lg shadow-green-900/40 transition">
+            <span>🎟️ View All Seats & Book Now (₹500)</span>
+        </a>
+    </div>
 
 </body>
 </html>
