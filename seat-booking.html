@@ -76,27 +76,56 @@
     </div>
 
     <script>
-        // ओनर का 10 अंकों का व्हाट्सएप नंबर यहाँ डालें (91 के साथ)
-        const OWNER_PHONE = "919999999999";
+        // ओनर का व्हाट्सएप नंबर
+        const OWNER_PHONE = "919251221747";
 
-        // सैंपल के लिए कुछ सीटें पहले से बुक हैं
-        let bookedSeats = [4, 8, 15, 23, 31, 42, 56, 73, 89];
+        // गूगल शीट का पब्लिश CSV लिंक
+        const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSE9tXNf7RMS2_PThr-HW_BzGy5vuQErPmFrxb-r8DFp28VBt43irse3dv9E4PBZq15-5V4uMkgr7il/pub?gid=0&single=true&output=csv";
+
+        let bookedSeats = [];
         let currentSelectedSeat = null;
-
         const grid = document.getElementById('seatGrid');
 
-        for (let i = 1; i <= 100; i++) {
-            const seat = document.createElement('div');
-            seat.className = 'h-11 rounded-lg flex items-center justify-center text-xs font-semibold border cursor-pointer transition';
-            seat.innerText = i;
+        async function fetchSeatData() {
+            try {
+                const response = await fetch(CSV_URL);
+                const csvData = await response.text();
+                const lines = csvData.trim().split('\n');
 
-            if (bookedSeats.includes(i)) {
-                seat.classList.add('seat-booked');
-            } else {
-                seat.classList.add('bg-[#131b15]', 'border-[#263529]', 'text-gray-300');
-                seat.onclick = () => openBookingModal(i);
+                bookedSeats = [];
+                for (let i = 1; i < lines.length; i++) {
+                    const parts = lines[i].split(',');
+                    if (parts.length >= 2) {
+                        const seatNum = parseInt(parts[0].trim());
+                        const status = parts[1].trim().toLowerCase();
+                        if (status.includes('book')) {
+                            bookedSeats.push(seatNum);
+                        }
+                    }
+                }
+                buildSeatGrid();
+            } catch (err) {
+                console.error("Sheet loading failed:", err);
+                bookedSeats = [4, 8, 15, 23, 31, 42, 56, 73, 89];
+                buildSeatGrid();
             }
-            grid.appendChild(seat);
+        }
+
+        function buildSeatGrid() {
+            grid.innerHTML = '';
+            for (let i = 1; i <= 100; i++) {
+                const seat = document.createElement('div');
+                seat.className = 'h-11 rounded-lg flex items-center justify-center text-xs font-semibold border cursor-pointer transition';
+                seat.innerText = i;
+
+                if (bookedSeats.includes(i)) {
+                    seat.classList.add('seat-booked');
+                } else {
+                    seat.classList.add('bg-[#131b15]', 'border-[#263529]', 'text-gray-300');
+                    seat.onclick = () => openBookingModal(i);
+                }
+                grid.appendChild(seat);
+            }
         }
 
         function openBookingModal(seatNum) {
@@ -125,6 +154,8 @@
 
             window.open(`https://wa.me/${OWNER_PHONE}?text=${text}`, '_blank');
         });
+
+        fetchSeatData();
     </script>
 </body>
 </html>
