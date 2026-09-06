@@ -9,7 +9,7 @@
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0b0f0d; color: #e5e7eb; }
         .luxury-font { font-family: 'Cinzel', serif; }
-        .glass-card { background: rgba(18, 26, 20, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(212, 175, 55, 0.2); }
+        .glass-card { background: rgba(18, 26, 20, 0.95); backdrop-filter: blur(14px); border: 1px solid rgba(212, 175, 55, 0.3); }
         .seat-booked {
             background-color: #052e16 !important;
             border-color: #22c55e !important;
@@ -40,35 +40,35 @@
     <!-- 100 Seats Grid -->
     <div id="seatGrid" class="grid grid-cols-5 gap-2 max-w-md mx-auto"></div>
 
-    <!-- Interactive Booking Popup Modal -->
-    <div id="bookingModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-end sm:items-center justify-center p-4">
-        <div class="glass-card rounded-2xl w-full max-w-sm p-5 border border-amber-500/40 relative animate-fade-in">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 text-lg">&times;</button>
+    <!-- Centered & Keyboard-Safe Booking Modal -->
+    <div id="bookingModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="glass-card rounded-2xl w-full max-w-md p-6 border border-amber-500/40 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold leading-none">&times;</button>
             
-            <h3 class="luxury-font text-base font-bold text-white">Reserve Seat <span id="modalSeatNumber" class="text-[#d4af37]">#--</span></h3>
+            <h3 class="luxury-font text-lg font-bold text-white">Reserve Seat <span id="modalSeatNumber" class="text-[#d4af37]">#--</span></h3>
             
             <!-- Price Comparison inside Modal -->
-            <div class="my-3 p-2.5 rounded-lg bg-emerald-950/40 border border-emerald-500/30 text-xs">
-                <p class="text-emerald-400 font-semibold">🎉 Online Advance Offer: ₹500/month</p>
-                <p class="text-gray-400 text-[11px] mt-0.5">(Direct counter admission: ₹600/month)</p>
+            <div class="my-3 p-3 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-xs">
+                <p class="text-emerald-400 font-bold text-sm">🎉 Online Advance Offer: ₹500/month</p>
+                <p class="text-gray-300 text-xs mt-1">Direct offline counter admission: <strong>₹600/month</strong></p>
             </div>
 
             <!-- Student Form -->
-            <form id="studentForm" class="space-y-3 mt-4 text-xs">
+            <form id="studentForm" class="space-y-4 mt-4 text-xs">
                 <div>
-                    <label class="block text-gray-300 mb-1">Your Full Name / पूरा नाम</label>
-                    <input type="text" id="custName" required placeholder="e.g. Rahul Sharma" class="w-full p-2.5 rounded-lg bg-[#0b0f0d] border border-gray-700 text-white focus:outline-none focus:border-amber-400">
+                    <label class="block text-gray-200 mb-1 font-medium">Your Full Name / पूरा नाम</label>
+                    <input type="text" id="custName" required placeholder="e.g. Rahul Sharma" class="w-full p-3 rounded-xl bg-[#0b0f0d] border border-gray-700 text-white text-sm focus:outline-none focus:border-amber-400">
                 </div>
                 <div>
-                    <label class="block text-gray-300 mb-1">Mobile Number / मोबाइल नंबर</label>
-                    <input type="tel" id="custPhone" required placeholder="e.g. 9876543210" class="w-full p-2.5 rounded-lg bg-[#0b0f0d] border border-gray-700 text-white focus:outline-none focus:border-amber-400">
+                    <label class="block text-gray-200 mb-1 font-medium">Mobile Number / मोबाइल नंबर</label>
+                    <input type="tel" id="custPhone" required placeholder="e.g. 9876543210" class="w-full p-3 rounded-xl bg-[#0b0f0d] border border-gray-700 text-white text-sm focus:outline-none focus:border-amber-400">
                 </div>
                 <div>
-                    <label class="block text-gray-300 mb-1">Target Exam / क्या पढ़ाई कर रहे हैं?</label>
-                    <input type="text" id="custExam" required placeholder="e.g. NEET, JEE, UPSC, Graduation" class="w-full p-2.5 rounded-lg bg-[#0b0f0d] border border-gray-700 text-white focus:outline-none focus:border-amber-400">
+                    <label class="block text-gray-200 mb-1 font-medium">Target Exam / क्या पढ़ाई कर रहे हैं?</label>
+                    <input type="text" id="custExam" required placeholder="e.g. NEET, JEE, UPSC, Graduation" class="w-full p-3 rounded-xl bg-[#0b0f0d] border border-gray-700 text-white text-sm focus:outline-none focus:border-amber-400">
                 </div>
                 
-                <button type="submit" class="w-full mt-2 py-3 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-1.5 shadow-lg shadow-green-900/40">
+                <button type="submit" class="w-full mt-3 py-3.5 bg-green-600 hover:bg-green-700 text-white font-bold rounded-xl text-sm flex items-center justify-center gap-2 shadow-lg shadow-green-900/50 transition">
                     <span>📲 Send WhatsApp Request for ₹500 QR Code</span>
                 </button>
             </form>
@@ -85,7 +85,6 @@
 
         async function fetchSeatData() {
             try {
-                // गूगल कैश रोकने के लिए टाइमस्टैम्प
                 const response = await fetch(CSV_URL + '&t=' + new Date().getTime());
                 const csvData = await response.text();
                 const lines = csvData.trim().split(/\r?\n/);
@@ -96,8 +95,6 @@
                     if (row.length >= 2) {
                         const seatNum = parseInt(row[0].trim());
                         const status = row[1].trim().toLowerCase();
-                        
-                        // केवल साफ़ 'booked' मिलने पर ही हरी लाइट जलेगी
                         if (status === 'booked') {
                             bookedSeats.push(seatNum);
                         }
