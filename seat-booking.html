@@ -15,6 +15,7 @@
             border-color: #22c55e !important;
             color: #4ade80 !important;
             box-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
+            pointer-events: none;
         }
     </style>
 </head>
@@ -25,6 +26,7 @@
         <h1 class="luxury-font text-sm font-bold text-[#d4af37]">LIVE SEAT MAP</h1>
     </div>
 
+    <!-- Seat Status Legend -->
     <div class="glass-card p-3 rounded-xl flex justify-around text-xs mb-4">
         <div class="flex items-center gap-2">
             <span class="w-4 h-4 rounded bg-[#131b15] border border-gray-600 block"></span>
@@ -36,19 +38,23 @@
         </div>
     </div>
 
+    <!-- 100 Seats Grid -->
     <div id="seatGrid" class="grid grid-cols-5 gap-2 max-w-md mx-auto"></div>
 
+    <!-- Centered & Keyboard-Safe Booking Modal -->
     <div id="bookingModal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
         <div class="glass-card rounded-2xl w-full max-w-md p-6 border border-amber-500/40 relative shadow-2xl max-h-[90vh] overflow-y-auto">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold leading-none">&times;</button>
             
             <h3 class="luxury-font text-lg font-bold text-white">Reserve Seat <span id="modalSeatNumber" class="text-[#d4af37]">#--</span></h3>
             
+            <!-- Price Comparison inside Modal -->
             <div class="my-3 p-3 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-xs">
                 <p class="text-emerald-400 font-bold text-sm">🎉 Online Advance Offer: ₹500/month</p>
                 <p class="text-gray-300 text-xs mt-1">Direct offline counter admission: <strong>₹600/month</strong></p>
             </div>
 
+            <!-- Student Form -->
             <form id="studentForm" class="space-y-4 mt-4 text-xs">
                 <div>
                     <label class="block text-gray-200 mb-1 font-medium">Your Full Name / पूरा नाम</label>
@@ -78,9 +84,30 @@
         let currentSelectedSeat = null;
         const grid = document.getElementById('seatGrid');
 
+        // पहले ही 1 से 100 सीटें बना दी जाएँगी ताकि स्क्रीन खाली न दिखे
+        function buildSeatGrid() {
+            grid.innerHTML = '';
+            for (let i = 1; i <= 100; i++) {
+                const seat = document.createElement('div');
+                seat.id = `seat-${i}`;
+                seat.className = 'h-11 rounded-lg flex items-center justify-center text-xs font-semibold border cursor-pointer transition';
+                seat.innerText = i;
+
+                if (bookedSeats.includes(i)) {
+                    seat.className = 'h-11 rounded-lg flex items-center justify-center text-xs font-semibold border transition seat-booked';
+                } else {
+                    seat.className = 'h-11 rounded-lg flex items-center justify-center text-xs font-semibold border cursor-pointer transition bg-[#131b15] border-[#263529] text-gray-300';
+                    seat.onclick = () => openBookingModal(i);
+                }
+                grid.appendChild(seat);
+            }
+        }
+
+        // गूगल शीट से बैकग्राउंड में फ्रेश डेटा लाने का फंक्शन
         async function fetchSeatData() {
             try {
-                const response = await fetch(CSV_URL + '&t=' + new Date().getTime());
+                const response = await fetch(CSV_URL + '&t=' + Date.now());
+                if (!response.ok) throw new Error('Sheet network error');
                 const csvData = await response.text();
                 const lines = csvData.trim().split(/\r?\n/);
 
@@ -97,26 +124,7 @@
                 }
                 buildSeatGrid();
             } catch (err) {
-                console.error("Sheet loading failed:", err);
-                bookedSeats = [4, 8, 15];
-                buildSeatGrid();
-            }
-        }
-
-        function buildSeatGrid() {
-            grid.innerHTML = '';
-            for (let i = 1; i <= 100; i++) {
-                const seat = document.createElement('div');
-                seat.className = 'h-11 rounded-lg flex items-center justify-center text-xs font-semibold border cursor-pointer transition';
-                seat.innerText = i;
-
-                if (bookedSeats.includes(i)) {
-                    seat.classList.add('seat-booked');
-                } else {
-                    seat.classList.add('bg-[#131b15]', 'border-[#263529]', 'text-gray-300');
-                    seat.onclick = () => openBookingModal(i);
-                }
-                grid.appendChild(seat);
+                console.warn("Sheet fetch delay or error, showing default layout:", err);
             }
         }
 
@@ -132,4 +140,24 @@
 
         document.getElementById('studentForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const
+            const name = document.getElementById('custName').value;
+            const phone = document.getElementById('custPhone').value;
+            const exam = document.getElementById('custExam').value;
+
+            const text = `*New Seat Reservation Request*%0A%0A` +
+                         `*Selected Seat:* %23${currentSelectedSeat}%0A` +
+                         `*Student Name:* ${name}%0A` +
+                         `*Mobile:* ${phone}%0A` +
+                         `*Course/Exam:* ${exam}%0A%0A` +
+                         `*Requested Plan:* Online Advance Discount (₹500/month)%0A` +
+                         `Sir, please send your QR Code so I can complete the payment and lock my seat.`;
+
+            window.open(`https://wa.me/${OWNER_PHONE}?text=${text}`, '_blank');
+        });
+
+        // पेज लोड होते ही तुरंत ग्रिड रेंडर करें, फिर डेटा फेच करें
+        buildSeatGrid();
+        fetchSeatData();
+    </script>
+</body>
+</html>
