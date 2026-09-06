@@ -76,10 +76,7 @@
     </div>
 
     <script>
-        // ओनर का व्हाट्सएप नंबर
         const OWNER_PHONE = "919251221747";
-
-        // गूगल शीट का पब्लिश CSV लिंक
         const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSE9tXNf7RMS2_PThr-HW_BzGy5vuQErPmFrxb-r8DFp28VBt43irse3dv9E4PBZq15-5V4uMkgr7il/pub?gid=0&single=true&output=csv";
 
         let bookedSeats = [];
@@ -88,17 +85,20 @@
 
         async function fetchSeatData() {
             try {
-                const response = await fetch(CSV_URL);
+                // गूगल कैश रोकने के लिए टाइमस्टैम्प
+                const response = await fetch(CSV_URL + '&t=' + new Date().getTime());
                 const csvData = await response.text();
-                const lines = csvData.trim().split('\n');
+                const lines = csvData.trim().split(/\r?\n/);
 
                 bookedSeats = [];
                 for (let i = 1; i < lines.length; i++) {
-                    const parts = lines[i].split(',');
-                    if (parts.length >= 2) {
-                        const seatNum = parseInt(parts[0].trim());
-                        const status = parts[1].trim().toLowerCase();
-                        if (status.includes('book')) {
+                    const row = lines[i].split(',');
+                    if (row.length >= 2) {
+                        const seatNum = parseInt(row[0].trim());
+                        const status = row[1].trim().toLowerCase();
+                        
+                        // केवल साफ़ 'booked' मिलने पर ही हरी लाइट जलेगी
+                        if (status === 'booked') {
                             bookedSeats.push(seatNum);
                         }
                     }
@@ -106,7 +106,7 @@
                 buildSeatGrid();
             } catch (err) {
                 console.error("Sheet loading failed:", err);
-                bookedSeats = [4, 8, 15, 23, 31, 42, 56, 73, 89];
+                bookedSeats = [4, 8, 15];
                 buildSeatGrid();
             }
         }
